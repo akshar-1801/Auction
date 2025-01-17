@@ -16,7 +16,8 @@ const responseModel = require("./models/response.model");
 const app = express();
 
 // Allow all origins dynamically
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 // Parse incoming JSON requests
 app.use(bodyParser.json());
@@ -37,24 +38,29 @@ app.use("/api/response", responseRoutes);
 app.post("/login", async (req, res) => {
   const { phone, password } = req.body;
 
+  console.log("Received login request:", { phone, password });
+
   try {
     const user = await userModel.findOne({ phone });
-
     if (!user) {
+      console.log("User not found");
       return res
         .status(401)
         .json({ message: "Invalid phone number or password" });
     }
 
+    console.log("User found:", user);
+
     if (user.password !== password) {
+      console.log("Password mismatch");
       return res
         .status(401)
         .json({ message: "Invalid phone number or password" });
     }
 
     const hasResponded = await responseModel.findOne({ roll_no: user.roll_no });
-
     if (hasResponded) {
+      console.log("User has already responded");
       return res.status(403).json({
         message:
           "You have already submitted a response and cannot log in again.",
@@ -64,6 +70,8 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+
+    console.log("Token generated:", token);
 
     res.status(200).json({
       message: "Login successful",
