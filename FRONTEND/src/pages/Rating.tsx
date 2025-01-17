@@ -33,7 +33,7 @@ const Rating = () => {
 
       try {
         const response = await axios.get(
-          `https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/users/${userId}`,
+          `https://backend-fia06peaf-akshar-1801s-projects.vercel.app/api/users/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ const Rating = () => {
 
     try {
       const result = await axios.post(
-        "https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/response",
+        "https://backend-fia06peaf-akshar-1801s-projects.vercel.app/api/response",
         response
       );
       console.log("Response from server:", result.data);
