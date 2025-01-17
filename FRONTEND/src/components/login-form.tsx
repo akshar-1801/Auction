@@ -23,7 +23,7 @@ export function LoginForm({ setIsLoggedIn, ...props }: LoginFormProps) {
 
     try {
       const response = await axios.post(
-        "https://backend-fia06peaf-akshar-1801s-projects.vercel.app/login",
+        "https://backend-f4c6g2izd-akshar-1801s-projects.vercel.app/login",
         { phone, password }, // Axios automatically serializes JSON
         {
           headers: {
@@ -46,7 +46,9 @@ export function LoginForm({ setIsLoggedIn, ...props }: LoginFormProps) {
       // Handle error response
       console.error("Error during login:", error);
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message || "Login failed. Please try again.");
+        setErrorMessage(
+          error.response.data.message || "Login failed. Please try again."
+        );
       } else {
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
