@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // If not already imported
@@ -10,9 +10,9 @@ interface Player {
   img_url: string; // Matches img_url in the schema
 }
 
-const generateResponseId = () => {
-  return "resp_" + Math.random().toString(36).substr(2, 9);
-};
+// const generateResponseId = () => {
+//   return "resp_" + Math.random().toString(36).substr(2, 9);
+// };
 
 const MAX_EXTREME_RATINGS = 10; // Maximum allowed 5-star and 1-star ratings
 
@@ -141,7 +141,7 @@ const Rating = () => {
     // Get values before clearing
     const userId = localStorage.getItem("userId");
     const userRoll = localStorage.getItem("userRoll");
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
     const response = {
       user_id: userId,
