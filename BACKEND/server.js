@@ -15,7 +15,7 @@ const responseModel = require("./models/response.model");
 
 const app = express();
 const corsOptions = {
-  origin: ["http://localhost:5173"], // Replace this with your frontend origin(s)
+  origin: ["https://frontend-jwtjingd8-akshar-1801s-projects.vercel.app"], // Replace this with your frontend origin(s)
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow credentials (e.g., cookies, headers)
 };

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import axios from "axios"; // Import axios
 
 // Props now include the setIsLoggedIn function
 interface LoginFormProps {
@@ -21,33 +22,34 @@ export function LoginForm({ setIsLoggedIn, ...props }: LoginFormProps) {
     event.preventDefault();
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/login",
+        { phone, password }, // Axios automatically serializes JSON
         {
-          method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", // Optional, axios sets this by default for POST
           },
-          body: JSON.stringify({ phone, password }),
         }
       );
 
-      const data = await response.json();
-      // console.log(data);
+      // If the request succeeds, handle the response data
+      const data = response.data;
 
-      if (response.ok) {
-        // Save token to local storage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.userId);
-        localStorage.setItem("userRoll", data.roll_no);
-        setIsLoggedIn(true); // Update login state
-        navigate("/rating");
-      } else {
-        setErrorMessage(data.message || "Login failed. Please try again.");
-      }
-    } catch (error) {
+      // Save token and user details to localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("userRoll", data.roll_no);
+
+      setIsLoggedIn(true); // Update login state
+      navigate("/rating");
+    } catch (error: any) {
+      // Handle error response
       console.error("Error during login:", error);
-      setErrorMessage("An unexpected error occurred. Please try again.");
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message || "Login failed. Please try again.");
+      } else {
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
     }
   };
 

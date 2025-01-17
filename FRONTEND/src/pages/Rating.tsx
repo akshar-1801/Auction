@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // If not already imported
+import axios from "axios";
 
 interface Player {
   roll_no: number; // Matches roll_no in the schema
@@ -9,10 +9,6 @@ interface Player {
   avg_rating: number; // Matches avg_rating in the schema
   img_url: string; // Matches img_url in the schema
 }
-
-// const generateResponseId = () => {
-//   return "resp_" + Math.random().toString(36).substr(2, 9);
-// };
 
 const MAX_EXTREME_RATINGS = 10; // Maximum allowed 5-star and 1-star ratings
 
@@ -36,21 +32,16 @@ const Rating = () => {
       }
 
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/users/${userId}`,
           {
-            method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch players: ${response.statusText}`);
-        }
-
-        const players = await response.json();
+        const players = response.data;
         const mappedPlayers = players.map((player: any) => ({
           roll_no: player.roll_no,
           name: player.name,
@@ -60,7 +51,7 @@ const Rating = () => {
 
         setPlayerRatings(mappedPlayers);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching players:", error);
       } finally {
         setIsLoading(false);
       }
@@ -138,10 +129,8 @@ const Rating = () => {
 
     setIsSubmitting(true);
 
-    // Get values before clearing
     const userId = localStorage.getItem("userId");
     const userRoll = localStorage.getItem("userRoll");
-    // const token = localStorage.getItem("token");
 
     const response = {
       user_id: userId,
@@ -155,7 +144,6 @@ const Rating = () => {
     };
 
     try {
-      // console.log("Submitting Rating Response:", response);
       const result = await axios.post(
         "https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/response",
         response
@@ -163,9 +151,8 @@ const Rating = () => {
       console.log("Response from server:", result.data);
 
       resetRatings();
-      localStorage.clear(); // Clear all storage
+      localStorage.clear();
 
-      // Create a function to clear storage and navigate
       const clearAndNavigate = () => {
         navigate("/login");
       };
