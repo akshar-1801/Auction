@@ -97,7 +97,8 @@ export function LoginForm({ setIsLoggedIn, ...props }: LoginFormProps) {
                 <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
               )}
               <div className="text-center text-sm">
-                The responses you are about to give will decide the base price of the players for the auction.
+                The responses you are about to give will decide the base price
+                of the players for the auction.
               </div>
             </div>
           </form>

@@ -14,6 +14,11 @@ const userModel = require("./models/user.model");
 const responseModel = require("./models/response.model");
 
 const app = express();
+const corsOptions = {
+  origin: ["http://localhost:5173"], // Replace this with your frontend origin(s)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // Allow credentials (e.g., cookies, headers)
+};
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -86,5 +91,7 @@ app.get("/", (req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;

@@ -172,7 +172,6 @@ const Rating = () => {
 
       alert("Ratings submitted successfully!");
       setTimeout(clearAndNavigate, 1000);
-      
     } catch (error) {
       console.error("Error submitting ratings:", error);
       alert("There was an error submitting your ratings. Please try again.");
