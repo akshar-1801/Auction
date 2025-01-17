@@ -19,7 +19,7 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // Allow credentials (e.g., cookies, headers)
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
