@@ -37,7 +37,7 @@ const Rating = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/${userId}`,
+          `https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/users/${userId}`,
           {
             method: "GET",
             headers: {
@@ -157,7 +157,7 @@ const Rating = () => {
     try {
       // console.log("Submitting Rating Response:", response);
       const result = await axios.post(
-        "http://localhost:5000/api/response",
+        "https://backend-2sq4ab87c-akshar-1801s-projects.vercel.app/api/response",
         response
       );
       console.log("Response from server:", result.data);
