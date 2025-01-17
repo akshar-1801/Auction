@@ -16,8 +16,16 @@ const responseModel = require("./models/response.model");
 const app = express();
 
 // Allow all origins dynamically
-// app.use(cors());
-app.use(cors({ origin: true, credentials: true }));
+// Allow all origins with specific methods and headers
+app.use(
+  cors({
+    origin: "*", // Use "*" to allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow all HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  })
+);
+
+app.options("*", cors()); // Allow preflight requests for all routes
 
 // Parse incoming JSON requests
 app.use(bodyParser.json());
