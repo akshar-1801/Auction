@@ -23,7 +23,7 @@ export function LoginForm({ setIsLoggedIn, ...props }: LoginFormProps) {
 
     try {
       const response = await axios.post(
-        "https://backend-2qpulg5ww-akshar-1801s-projects.vercel.app/login",
+        "https://backend-psi-blush-38.vercel.app/login",
         { phone, password }, // Axios automatically serializes JSON
         {
           headers: {
