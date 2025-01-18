@@ -1,5 +1,3 @@
-import React from "react";
-
 const Regard = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative">
