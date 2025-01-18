@@ -154,7 +154,7 @@ const Rating = () => {
       localStorage.clear();
 
       const clearAndNavigate = () => {
-        navigate("/login");
+        navigate("/regards");
       };
 
       alert("Ratings submitted successfully!");

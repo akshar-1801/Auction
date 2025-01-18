@@ -1,16 +1,24 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/Login.tsx';
-import Rating from './pages/Rating.tsx';
-import { useState, useEffect } from 'react';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import LoginPage from "./pages/Login.tsx";
+import Rating from "./pages/Rating.tsx";
+import Regard from "./pages/Regard.tsx";
+import { useState, useEffect } from "react";
 
 function App() {
   // State to track login status
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(Boolean(localStorage.getItem('token')));
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    Boolean(localStorage.getItem("token"))
+  );
 
   // Sync state with localStorage on initial load
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(Boolean(token));
   }, []);
 
@@ -23,13 +31,34 @@ function App() {
     <Router>
       <Routes>
         {/* Redirect to Rating if logged in, otherwise show LoginPage */}
-        <Route path="/login" element={isLoggedIn ? <Navigate to="/rating" /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-        
+        <Route
+          path="/login"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/rating" />
+            ) : (
+              <LoginPage setIsLoggedIn={setIsLoggedIn} />
+            )
+          }
+        />
+
         {/* Protected Route */}
-        <Route path="/rating" element={<PrivateRoute><Rating /></PrivateRoute>} />
-        
+        <Route
+          path="/rating"
+          element={
+            <PrivateRoute>
+              <Rating />
+            </PrivateRoute>
+          }
+        />
+
+        <Route path="/regards" element={<Regard />} />
+
         {/* Catch-all Route */}
-        <Route path="*" element={<Navigate to={isLoggedIn ? '/rating' : '/login'} />} />
+        <Route
+          path="*"
+          element={<Navigate to={isLoggedIn ? "/rating" : "/login"} />}
+        />
       </Routes>
     </Router>
   );
